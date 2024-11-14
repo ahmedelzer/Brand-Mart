@@ -1,0 +1,37 @@
+APIs
+in Home page
+"/Home/GetFullHomeMainContents?PageSize=11&PageNumber=1"//do not used
+"Home/GetFullHomeMainContents?PageSize=11&PageNumber=1"//for posts
+"Home/GetFullHomeMainContents?PageSize=11&PageNumber=1"//cards
+in services page
+"BrandService/GetBrandServices?PageSize=1&PageNumber=1"//for "Brand Service
+"BrandServiceCategory/GetBrandServiceCategories?PageSize=11&PageNumber=1"//for Service Category
+in portfolio page
+"PortfolioWork/GetFullPortfolioWorks?PageSize=11&PageNumber=1"//for portfolioWork contents
+in contact&&about us is the same component and do not use any apis
+////////////////////////////
+Review
+Header 
+1-logo need to back ground not white //Done
+2-the button on the header do not do any thing 
+3-the function of languages or any api for that
+4-select right color for the menu on the small screens //Done
+5-make the menu of languages more modern //Done
+6-make button more modern //Done
+Footer
+1-have to make footer more effection and style //Done
+2-extract the styles from the and choose the colors //Done
+in Home page
+1-we need to choose the cards we have 3 components for cards -MainContent -Card -Posts =>//a group of Cards //Done
+in Services page
+1-we should choose the right cards for Services case this the important for the user 
+in Form page
+1-do not use any apis
+2-only page of Personal info had made
+in contact && about us is the same component page //Done
+//////////////////////////////
+things need to do in all pages and components
+1-all apis have not all we needs
+2-extract the styles and choose the colors we will use in all pages //Done
+3-localization //Done
+4-remove files and libraries do not needed //Done
