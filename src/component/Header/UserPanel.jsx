@@ -7,13 +7,28 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 function UserPanel({ useTheme = true }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedPage, setSelectedPage] = useState(window.location.pathname);
   const { localization } = useContext(LanguageContext);
-  const { personalInfo, isSigh } = useContext(RegistrationContext);
-
+  const { personalInfo, isSigh, setIsSigh, setPersonalInfo } =
+    useContext(RegistrationContext);
+  const navigate = useNavigate();
   function toggleDropdown() {
     setDropdownOpen(!dropdownOpen);
+  }
+  function switchAccount() {
+    //   navigate(selectedPage);
+    // setIsSigh(false);
+    // setPersonalInfo({});
+  }
+  function logout() {
+    setIsSigh(false);
+    setPersonalInfo({});
+    if (selectedPage.startsWith("/form")) {
+      location.reload();
+    }
   }
   if (!isSigh) {
     return <></>;
@@ -45,6 +60,7 @@ function UserPanel({ useTheme = true }) {
                 ? "!text-primary p-2 hover:bg-body transition-all duration-300"
                 : ""
             }`}
+            onClick={switchAccount}
           >
             {localization.userPanel.switchAccount}
           </button>
@@ -54,6 +70,7 @@ function UserPanel({ useTheme = true }) {
                 ? "!text-primary p-2 hover:bg-body transition-all duration-300"
                 : ""
             }`}
+            onClick={logout}
           >
             {localization.userPanel.logout}
           </button>

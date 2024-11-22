@@ -15,7 +15,7 @@ export const headerStyles = {
   mobileMenu: (open) =>
     `${
       open ? "right-0" : "-right-full"
-    } fixed top-0 bottom-0 z-30 w-full h-screen transition-all duration-200`,
+    } fixed top-0 bottom-0 !z-[500] w-full h-screen transition-all duration-200`,
 };
 export const categoryNavMobileStyles = {
   container: "w-full h-full bg-card p-8",

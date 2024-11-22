@@ -33,7 +33,7 @@ import GetOpenCustomerRequestByContactSchema from "../../Schemas/StepsFrom/getOp
 import { buildApiUrl } from "../../hooks/APIsFunctions/BuildApiUrl";
 import { formStyle } from "./styles";
 import { LanguageContext } from "../../context/Language";
-import { FaCircleArrowRight } from "react-icons/fa6";
+import { FaCircleArrowLeft, FaCircleArrowRight } from "react-icons/fa6";
 import LanguageSelector from "../Header/LanguageSelector";
 import UserPanel from "../Header/UserPanel";
 // import useFetch from "@/src/hooks/APIsFunctions/useFetch";
@@ -58,7 +58,7 @@ const Form = ({
   const { serviceID } = useParams();
   const [margeRow, setMargeRow] = useState(personalInfo);
 
-  const { localization } = useContext(LanguageContext);
+  const { localization, Right } = useContext(LanguageContext);
   const [customerRequestID, setCustomerRequestID] = useState(false);
   const [stepNumber, setStepNumber] = useState(isSigh ? 2 : 1);
   const [result, setResult] = useState({});
@@ -284,13 +284,15 @@ const Form = ({
     if (!customerRequestID && isSigh) {
       OpenRequestAndSetCustomerRequestID("BrandingMartCRM", {}); //!route is static
     }
-  });
+  }, []);
   const onSubmit = async (e, action, type, route) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
-
+    console.log("====================================");
+    console.log(formJson, action);
+    console.log("====================================");
     if (type == "next step") {
       if (stepNumber === steps.length) {
         setDisable(true);
@@ -306,8 +308,8 @@ const Form = ({
             action,
             route
           );
+          setResult(request);
           if (request) {
-            setResult(request);
             setDisplayThankyou(true);
           }
         } catch (error) {
@@ -330,8 +332,8 @@ const Form = ({
             action,
             route
           );
+          setResult(request);
           if (request) {
-            setResult(request);
             setServiceRegistrationID(
               serviceRegistrationSteps?.dataSource[stepNumber - 1]
                 .serviceRegistrationID
@@ -360,11 +362,12 @@ const Form = ({
           action,
           LoginFormSchema.projectProxyRoute
         );
+        setResult(request);
         if (request && request.success === true) {
-          setResult(request);
-
           setMargeRow({ ...margeRow, ...request.data, ...formJson });
           setPersonalInfo({ ...personalInfo, ...request.data, ...formJson });
+          console.log({ ...personalInfo, ...request.data, ...formJson });
+
           setHavePersonalInfo(() => true);
         }
       } catch (error) {
@@ -576,14 +579,22 @@ const Form = ({
     <div className={formStyle.body}>
       <div className={formStyle.container + " relative"}>
         <div className="text-black  flex justify-end">
-          <div className="absolute top-0 right-0 m-4 flex">
+          <div
+            className={`${
+              Right ? "left-0" : "right-0"
+            } absolute -top-3 m-4 flex  z-50`}
+          >
             <UserPanel useTheme={false} />
             <div
               className="cursor-pointer"
               title="click to go to the previous page and save account" //!localization
               onClick={handleGoBack}
             >
-              <FaCircleArrowRight size={35} className="mx-2" />
+              {Right ? (
+                <FaCircleArrowLeft size={35} className="mx-2" />
+              ) : (
+                <FaCircleArrowRight size={35} className="mx-2" />
+              )}
             </div>
           </div>
         </div>
@@ -654,6 +665,7 @@ const Form = ({
                     }}
                     havePersonalInfo={havePersonalInfo}
                     isConfirm={stepNumber === steps.length}
+                    row={margeRow}
                   />
                 )}
               </div>

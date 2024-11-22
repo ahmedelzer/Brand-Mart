@@ -1,10 +1,10 @@
 import { LanguageContext } from "../../../context/Language";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Input, InputGroup } from "reactstrap";
 
 const countryCodes = [
-  { code: "+1", country: "USA" },
   { code: "+20", country: "EG" },
+  { code: "+1", country: "USA" },
   { code: "+44", country: "UK" },
   { code: "+91", country: "India" },
   { code: "+61", country: "Australia" },
@@ -12,12 +12,35 @@ const countryCodes = [
   // Add more country codes as needed
 ];
 
-function PhoneNumberParameter({ value, fieldName, enable, onKeyPress }) {
+function PhoneNumberParameter({
+  value,
+  fieldName,
+  enable,
+  onKeyPress,
+  ...props
+}) {
   const { Right } = useContext(LanguageContext);
+  console.log("====================================");
+  console.log(value == "+201067921420"); //can you set the selectedCode +20 and set input value 1067921420
+  console.log("====================================");
 
   const [selectedCode, setSelectedCode] = useState(countryCodes[0].code);
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
-
+  // Split the value into country code and phone number on mount
+  useEffect(() => {
+    if (value) {
+      const matchingCode = countryCodes.find((item) =>
+        value.startsWith(item.code)
+      );
+      if (matchingCode) {
+        setSelectedCode(matchingCode.code);
+        setPhoneNumber(value.replace(matchingCode.code, ""));
+      } else {
+        setPhoneNumber(value); // If no matching code, assume entire value is phone number
+      }
+    }
+  }, [value]);
   const toggleDropdown = () => setShowDropdown(!showDropdown);
 
   const handleSelectCode = (code) => {
@@ -26,7 +49,7 @@ function PhoneNumberParameter({ value, fieldName, enable, onKeyPress }) {
   };
 
   return (
-    <div className="flex items-center mt-2" dir="ltr">
+    <div className="flex items-center mt-2" dir="ltr" title={props.title}>
       <InputGroup>
         {/* <div className=" w-full"> */}
         <Button
@@ -71,16 +94,24 @@ function PhoneNumberParameter({ value, fieldName, enable, onKeyPress }) {
         <Input
           type="tel"
           dir={`${Right ? "rtl" : "ltr"}`}
+          className={props.className}
           name={fieldName}
           readOnly={!enable}
-          value={value}
+          defaultValue={phoneNumber}
           id="phone-input"
           aria-describedby="helper-text-explanation"
           placeholder="123-456-7890"
           required
         />
+
         {/* </div> */}
       </InputGroup>
+      {/* <input
+        type="hidden"
+        name={fieldName}
+        // value={selectedCode + phoneNumber}
+        value={phoneNumber}
+      /> */}
     </div>
   );
 }

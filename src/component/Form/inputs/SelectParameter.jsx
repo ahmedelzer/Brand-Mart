@@ -1,15 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "reactstrap";
 
-function SelectParameter() {
+function SelectParameter({
+  value: initialValue,
+  enable,
+  title,
+  fieldName,
+  returnField,
+  displayField,
+  ...props
+}) {
+  console.log("====================================");
+  console.log(returnField, displayField);
+  console.log("====================================");
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
   return (
-    <Input id="exampleSelect" name="select" type="select">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
+    // <div className="w-full">
+    <Input
+      className={`${props.className} form-control`}
+      readOnly
+      value={displayField}
+      placeholder={displayField}
+      onChange={handleChange}
+      {...props}
+      disabled={!enable}
+      type="select"
+    >
+      {/* {value.map((option, index) => (
+        <option key={index} value={option}>
+          {option}
+        </option>
+      ))} */}
+      <option>{displayField}</option>
+      <input type="hidden" name={fieldName} value={returnField} />
     </Input>
+    /* </div> */
   );
 }
 

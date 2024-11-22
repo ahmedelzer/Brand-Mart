@@ -14,6 +14,22 @@ function TypeFile({
   const videoRef = useRef(null);
   let fileUrl = type ? file : URL.createObjectURL(file);
   const typeFile = type ? type : file.type;
+  const [fileSrc, setFileSrc] = useState(null);
+
+  useEffect(() => {
+    fetch(fileUrl)
+      .then((response) => {
+        if (!response.ok) {
+          console.log(response);
+        }
+        return response.blob();
+      })
+      .then((blob) => {
+        const imgURL = URL.createObjectURL(blob);
+        setFileSrc(imgURL); // Set the dynamic image source
+      })
+      .catch((error) => console.error("Error fetching the image:", error));
+  }, [fileUrl]);
   // Use regex to determine the correct MIME type from the file URL
   const getMimeTypeFromUrl = (url) => {
     const extension = url.split(".").pop().toLowerCase();
@@ -42,7 +58,7 @@ function TypeFile({
       case typeFile.startsWith("image"):
         return (
           <img
-            src={fileUrl}
+            src={fileSrc}
             alt={title}
             className="w-full h-auto"
             loading="lazy"
@@ -58,7 +74,7 @@ function TypeFile({
             className="w-full h-auto"
             autoPlay={isVideoLoaded && autoPlay}
           >
-            <source src={fileUrl} type={mimeType} />
+            <source src={fileSrc} type={mimeType} />
             {localization.fileContainer.videoNotSupport}
           </video>
         );

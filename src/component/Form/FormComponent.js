@@ -19,6 +19,7 @@ function FormComponent({
   setTypeSubmit,
   result,
   setRoute,
+  row,
 }) {
   const { isSigh, customerRequestID } = useContext(RegistrationContext);
   const { postAction: postActionSteps, getAction } =
@@ -59,9 +60,9 @@ function FormComponent({
         <FormContainer
           // tableSchema={personalInfoSchema}
           tableSchema={isSigh ? schema : personalInfoSchema}
-          row={{}}
           errorResult={result}
           returnRow={() => {}}
+          row={row}
         />
       );
     }

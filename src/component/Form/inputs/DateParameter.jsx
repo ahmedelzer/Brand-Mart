@@ -11,7 +11,7 @@ class DateParameter extends BaseInput {
     return (
       <DatepickerComponent
         name={fieldName}
-        defaultValue={value}
+        value={value}
         placeholderText={placeholder}
         // setInfo={setInfo}
         {...this.props}

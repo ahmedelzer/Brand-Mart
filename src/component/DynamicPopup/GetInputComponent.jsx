@@ -8,6 +8,7 @@ import {
   // LookupInput,
   TextParameter,
   AddingLookupParameter,
+  LocationMapParameter,
 } from "../Form/inputs/index";
 export function GetInputComponent(type) {
   switch (type) {
@@ -25,6 +26,10 @@ export function GetInputComponent(type) {
       return PhoneNumberParameter;
     case "addingLookup":
       return AddingLookupParameter; ///addingLookup
+    case "areaMapLongitudePoint":
+      return LocationMapParameter;
+    case "mapLongitudePoint":
+      return LocationMapParameter;
     // case "lookup":
     //   return LookupInput;
     default:

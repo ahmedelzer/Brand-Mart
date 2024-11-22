@@ -61,14 +61,14 @@
 /* For small screens (up to 640px) */
 @media (max-width: 640px) {
   .landing {
-    background-image: url("./assets/hero1lg.jpg") !important;
+    background-image: url("./assets/humHeroSM.jpg") !important;
   }
 }
 
 /* For medium screens (768px and up) */
 @media (min-width: 768px) and (max-width: 959px) {
   .landing {
-    background-image: url("./assets/Hero.jpg") !important;
+    background-image: url("./assets/humHeroSM.jpg") !important;
   }
 }
 

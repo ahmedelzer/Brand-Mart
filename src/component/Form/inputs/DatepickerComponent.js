@@ -6,9 +6,9 @@ import { ar } from "date-fns/locale"; // Import Arabic locale
 // Register the Arabic locale
 registerLocale("ar", ar);
 
-function DatepickerComponent({ name, ...props }) {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedDateIso, setSelectedDateIso] = useState(null);
+function DatepickerComponent({ name, value, ...props }) {
+  const [selectedDate, setSelectedDate] = useState(value);
+  const [selectedDateIso, setSelectedDateIso] = useState(value);
   const handleDateChange = (date) => {
     if (date) {
       const isoDateString = date.toISOString(); // Convert to ISO string
@@ -28,6 +28,7 @@ function DatepickerComponent({ name, ...props }) {
         showYearDropdown
         locale="ar"
         className={`${props.className} form-control`}
+        dateFormat="dd/MM/yyyy"
       />
       <input type="hidden" name={name} value={selectedDateIso} />
     </>

@@ -31,3 +31,9 @@ export const sectionHeadingStyles = {
   sectionTitle: "text-3xl font-bold text-[#02295a] my-1",
   sectionDesc: "text-[#9699ab] text-[14px]", // In case you want to use the description in the future
 };
+export const locationMap = {
+  container: "relative w-full h-[400px]",
+  mapContainer: "w-full h-full",
+  radiusContainer: "absolute bottom-0 left-0 w-full p-2 z-[1000]",
+  radiusInput: "w-full",
+};

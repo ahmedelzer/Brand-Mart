@@ -21,6 +21,7 @@ function DrawFrom({
   returnInfoStep,
   result,
   isConfirm,
+  row,
 }) {
   const { isSigh } = useContext(RegistrationContext);
   const { localization } = useContext(LanguageContext);
@@ -47,6 +48,7 @@ function DrawFrom({
             setTypeSubmit={setTypeSubmit}
             result={result}
             setRoute={setRoute}
+            row={row}
           />
         ))}
       <div className={styles.formContainer}>

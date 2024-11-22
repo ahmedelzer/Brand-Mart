@@ -22,6 +22,7 @@ class BooleanParameter extends BaseInput {
             id={fieldName}
             type="radio"
             value={1}
+            defaultChecked={value === "1"} // Ensure the selected value matches
             Enable={Enable}
             name={fieldName}
             required
@@ -35,6 +36,7 @@ class BooleanParameter extends BaseInput {
             id={`${fieldName}-no`}
             type="radio"
             value={0}
+            defaultChecked={value === "0" || !value}
             name={fieldName}
           />
           <label htmlFor={`${fieldName}-no`} className={styles.radioLabel}>

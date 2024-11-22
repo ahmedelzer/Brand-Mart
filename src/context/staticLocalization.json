@@ -50,6 +50,10 @@
       { "text": "Yes", "value": true },
       { "text": "No", "value": false }
     ],
+    "locationMap": {
+      "popupTitle": "Your selected location",
+      "radius": "Circle Radius: {radius} meters"
+    },
     "image": {
       "imageAltValue": "uploaded",
       "UrlPlaceholder": "Enter image URL",
@@ -254,6 +258,9 @@
     },
     "sideNav": {
       "step": "Step"
+    },
+    "popup": {
+      "done": "Done"
     }
   },
   "userPanel": {

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { otpStyles as styles } from "./styles"; // Importing the styles
 import { LanguageContext } from "../../context/Language";
+import useTimer from "../../hooks/APIsFunctions/useTimer";
 // import useTimer from "../../hooks/APIsFunctions/useTimer";
 
 const OTPForm = () => {
@@ -8,8 +9,24 @@ const OTPForm = () => {
   const inputRefs = useRef([]);
   const { localization } = useContext(LanguageContext);
   const [otpExpired, setOtpExpired] = useState(false); // To track if the OTP has expired
-  // Set a timer for 15 minutes (900 seconds)
-  // const countdown = useTimer(1, () => setOtpExpired(true));
+  const [currentTime, setCurrentTime] = useState(60); // Start at 1 minute (60 seconds)
+  useTimer(1, () => setOtpExpired(true)); // 1 minute countdown
+
+  // Timer logic
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(interval);
+          setOtpExpired(true); // OTP expires when timer reaches 0
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, []);
 
   const handleKeyDown = (e, index) => {
     if (
@@ -111,7 +128,7 @@ const OTPForm = () => {
           </div>
         ) : (
           <div className={styles}>
-            {/* {localization.formSteps.otp.expiresIn} {formatTime(countdown)} */}
+            {localization.formSteps.otp.expiresIn} {formatTime(currentTime)}
           </div>
         )}
         {localization.formSteps.otp.notReceive}{" "}

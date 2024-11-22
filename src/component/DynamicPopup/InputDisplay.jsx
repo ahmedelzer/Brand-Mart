@@ -17,12 +17,12 @@ function InputDisplay({ props, BaseInput, errorResult }) {
     setStyle(" ");
   };
   useEffect(() => {
-    if (!changed && inputErrorResult) {
+    if (inputErrorResult) {
       setStyle("is-invalid");
     } else {
       setStyle(" ");
     }
-  }, [inputErrorResult, errorResult, changed]);
+  }, [inputErrorResult, changed]);
   return (
     <div>
       {props.type !== "detailsCell" && (

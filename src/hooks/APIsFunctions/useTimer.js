@@ -1,32 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 /**
- * Custom timer hook that triggers a callback after a specified time and provides countdown.
+ * Custom timer hook that triggers a callback after a specified time.
  * @param {number} minutes - Time in minutes after which the callback will be triggered.
  * @param {function} callback - Function to be called when the timer expires.
- * @returns {number} countdown - Remaining time in seconds.
  */
 const useTimer = (minutes, callback) => {
-  const [countdown, setCountdown] = useState(minutes * 60);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
     if (!minutes || !callback) return;
 
-    const interval = setInterval(() => {
-      setCountdown((prevCountdown) => {
-        if (prevCountdown <= 1) {
-          clearInterval(interval);
-          callback();
-          return 0;
-        }
-        return prevCountdown - 1;
-      });
+    const totalSeconds = minutes * 60;
+    let remainingSeconds = totalSeconds;
+
+    intervalRef.current = setInterval(() => {
+      remainingSeconds -= 1;
+      if (remainingSeconds <= 0) {
+        clearInterval(intervalRef.current);
+        callback();
+      }
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, [minutes, callback]);
-
-  return countdown;
 };
 
 export default useTimer;
