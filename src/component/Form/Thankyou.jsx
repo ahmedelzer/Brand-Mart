@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import thankyouIcon from "../../assets/icon-thank-you.svg";
 import { Link } from "react-router-dom";
 import { LanguageContext } from "../../context/Language";
-import { notFoundStyles } from "../styles";
+import { drawStyle } from "./styles";
 
 const Thankyou = () => {
   const { localization } = useContext(LanguageContext);
@@ -18,7 +18,7 @@ const Thankyou = () => {
         platform. If you ever need support. Please feel free to email us at
         zainkazi27@gmail.com
       </p>
-      <Link to="/" className={notFoundStyles.button}>
+      <Link to="/" className={drawStyle.buttonBase}>
         {localization.notFound.backToHome}
       </Link>
     </div>

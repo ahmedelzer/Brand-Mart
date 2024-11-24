@@ -21,12 +21,12 @@ function SelectParameter({
     // <div className="w-full">
     <Input
       className={`${props.className} form-control`}
-      readOnly
       value={displayField}
       placeholder={displayField}
       onChange={handleChange}
       {...props}
       disabled={!enable}
+      required
       type="select"
     >
       {/* {value.map((option, index) => (

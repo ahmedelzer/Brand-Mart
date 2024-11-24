@@ -24,10 +24,11 @@ function UserPanel({ useTheme = true }) {
     // setPersonalInfo({});
   }
   function logout() {
-    setIsSigh(false);
-    setPersonalInfo({});
     if (selectedPage.startsWith("/form")) {
       location.reload();
+    } else {
+      setIsSigh(false);
+      setPersonalInfo({});
     }
   }
   if (!isSigh) {
@@ -48,22 +49,12 @@ function UserPanel({ useTheme = true }) {
           className="w-10 h-10 rounded-lg mx-2"
           alt="User Avatar"
         />
-        <p className="font-bold text-md">
+        <p className="font-bold text-md w-32 !truncate overflow-hidden whitespace-nowrap !text-ellipsis">
           {personalInfo.firstName + " " + personalInfo.lastName}
         </p>
       </DropdownToggle>
       <DropdownMenu className={`${useTheme ? "text-center !bg-text" : ""}`}>
         <div className="flex flex-col">
-          <button
-            className={`${
-              useTheme
-                ? "!text-primary p-2 hover:bg-body transition-all duration-300"
-                : ""
-            }`}
-            onClick={switchAccount}
-          >
-            {localization.userPanel.switchAccount}
-          </button>
           <button
             className={`${
               useTheme

@@ -98,6 +98,7 @@ function PhoneNumberParameter({
           name={fieldName}
           readOnly={!enable}
           defaultValue={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
           id="phone-input"
           aria-describedby="helper-text-explanation"
           placeholder="123-456-7890"
@@ -109,8 +110,8 @@ function PhoneNumberParameter({
       {/* <input
         type="hidden"
         name={fieldName}
-        // value={selectedCode + phoneNumber}
-        value={phoneNumber}
+        value={selectedCode + phoneNumber}
+        // value={phoneNumber}
       /> */}
     </div>
   );

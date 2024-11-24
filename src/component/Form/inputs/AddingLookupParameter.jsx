@@ -44,7 +44,7 @@ function AddingLookupParameter({ ...props }) {
     return null;
   }
   console.log("====================================");
-  console.log(lookupReturnField, lookupDisplayField);
+  console.log(newValues, modalOpen);
   console.log("====================================");
 
   return (
@@ -109,14 +109,16 @@ const ModalContent = ({
         postAction,
         schema.projectProxyRoute
       );
-      setResult(request);
-      if (request.data && result.success) {
+      if (request.success === true) {
         console.log("====================================");
-        console.log(request);
+        console.log("enter");
         console.log("====================================");
         setNewValues(request.data);
         setModalOpen(false);
+        // toggleModal();
         // setDisplayThankyou(true);
+      } else {
+        setResult(request);
       }
     } catch (error) {
       console.error("API call failed:", error);
@@ -126,11 +128,11 @@ const ModalContent = ({
       setDisable(false);
     }
   };
-
   if (error) {
     console.error("Error fetching actions from schema:", error);
     return <p>{localization.errors.schemaLoadFailed}</p>;
   }
+
   return (
     <form onSubmit={sendRequest}>
       <ModalHeader id="form-dialog-title" className="text-black">

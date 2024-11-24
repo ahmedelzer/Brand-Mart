@@ -28,6 +28,15 @@ export default async function APIHandling(url, methodType, sendBody, query) {
   console.log(requestOptions);
   try {
     const response = await fetch(urlRoute, requestOptions);
+    console.log("here");
+
+    // Handle 204 No Content
+    if (response.status === 204) {
+      return {
+        success: true,
+        data: null, // Since no content is returned
+      };
+    }
     const result = await response.json();
 
     // Check if the API call was successful based on the HTTP status code

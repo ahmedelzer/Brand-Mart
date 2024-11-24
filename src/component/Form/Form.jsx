@@ -35,6 +35,7 @@ import { formStyle } from "./styles";
 import { LanguageContext } from "../../context/Language";
 import { FaCircleArrowLeft, FaCircleArrowRight } from "react-icons/fa6";
 import LanguageSelector from "../Header/LanguageSelector";
+import { ImCancelCircle } from "react-icons/im";
 import UserPanel from "../Header/UserPanel";
 // import useFetch from "@/src/hooks/APIsFunctions/useFetch";
 //todo steps of form
@@ -66,12 +67,19 @@ const Form = ({
   const [havePersonalInfo, setHavePersonalInfo] = useState(isSigh);
 
   const [goBackVisible, setGoBackVisible] = useState("invisible");
+  console.log(localization);
+
   const [steps, setSteps] = useState([
-    { id: 1, title: "YOUR INFO", active: true },
+    {
+      id: 1,
+      title: "YOUR INFO" || localization.formSteps.sideNav.step,
+      active: true,
+    },
     ...serviceRegistrationSteps.dataSource.map((step, index) => ({
       id: index + 2, // Dynamically assign ID
       title: step.serviceRegistrationName, // Use the correct title
       active: false, // Set active to false for subsequent steps
+      serviceRegistrationStepID: step.serviceRegistrationStepID,
     })),
   ]);
   const [yourInfo, setYourInfo] = useState({
@@ -185,10 +193,13 @@ const Form = ({
     });
     if (stepNumber > 1) {
       setGoBackVisible("visible");
+      setMargeRow({
+        ...margeRow,
+        ...steps.find((step) => step.id === stepNumber),
+      });
     } else {
       setGoBackVisible("invisible");
     }
-
     // console.log(steps);
     // console.log(stepNumber);
     // console.log(yourInfo);
@@ -212,6 +223,7 @@ const Form = ({
   ]);
 
   //------------------------------FUNCTIONS------------------------------
+  let ignore = false;
   const OpenRequestAndSetCustomerRequestID = async (route, formJson) => {
     const dataSourceAPIToGetOpenRequest = (query) => {
       SetReoute(route);
@@ -279,19 +291,31 @@ const Form = ({
         }
       }
     }
+    console.log(getOpenCustomerRequestByContact);
   };
   useEffect(() => {
-    if (!customerRequestID && isSigh) {
+    if (!customerRequestID && isSigh && ignore == false) {
       OpenRequestAndSetCustomerRequestID("BrandingMartCRM", {}); //!route is static
+      return () => {
+        ignore = true;
+      };
     }
   }, []);
+  useEffect(() => {
+    if (stepNumber > 1) {
+      setMargeRow({
+        ...margeRow,
+        ...steps.find((step) => step.id === stepNumber),
+      });
+    }
+  });
   const onSubmit = async (e, action, type, route) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
     console.log("====================================");
-    console.log(formJson, action);
+    console.log(formJson, margeRow, personalInfo);
     console.log("====================================");
     if (type == "next step") {
       if (stepNumber === steps.length) {
@@ -308,9 +332,10 @@ const Form = ({
             action,
             route
           );
-          setResult(request);
-          if (request) {
+          if (request.success === true) {
             setDisplayThankyou(true);
+          } else {
+            setResult(request);
           }
         } catch (error) {
           console.error("API call failed:", error);
@@ -325,6 +350,7 @@ const Form = ({
           const request = await onApply(
             {
               ...formJson,
+              ...margeRow,
               customerRequestID: customerRequestID,
             },
             null,
@@ -378,7 +404,14 @@ const Form = ({
         setDisable(false);
       }
     } else if (type == "havePersonalInfo without Verification") {
-      const verificationID = result.data;
+      const verificationID = {
+        verificationID: personalInfo.verificationID || margeRow.verificationID,
+      };
+      console.log("====================================");
+      console.log(personalInfo, margeRow);
+      console.log(personalInfo.verificationID, margeRow.verificationID);
+
+      console.log("====================================");
       setDisable(true);
       const dataSourceAPI = (query) => {
         SetReoute(LoginFormSchema.projectProxyRoute);
@@ -400,7 +433,7 @@ const Form = ({
         if (request && request.success === true) {
           await OpenRequestAndSetCustomerRequestID(route, formJson);
           setResult(request);
-
+          setPersonalInfo({ ...personalInfo, ...formJson });
           setStepNumber((prev) => prev + 1);
         }
       } catch (error) {
@@ -543,6 +576,9 @@ const Form = ({
   if (isLoading || !serviceRegistration) {
     return <Loading />;
   }
+  if (!customerRequestID && isSigh && ignore == false) {
+    return <Loading />;
+  }
   if (error && !serviceRegistration) {
     // Handle error, e.g., display an error message
     return <div>Error: {error.message}</div>;
@@ -587,14 +623,10 @@ const Form = ({
             <UserPanel useTheme={false} />
             <div
               className="cursor-pointer"
-              title="click to go to the previous page and save account" //!localization
+              title={localization.browser.modal.button.cancel} //!localization
               onClick={handleGoBack}
             >
-              {Right ? (
-                <FaCircleArrowLeft size={35} className="mx-2" />
-              ) : (
-                <FaCircleArrowRight size={35} className="mx-2" />
-              )}
+              <ImCancelCircle size={35} className="mx-2" />
             </div>
           </div>
         </div>

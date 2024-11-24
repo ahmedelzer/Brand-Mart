@@ -257,7 +257,8 @@
       "notReceive": "Didn't receive code"
     },
     "sideNav": {
-      "step": "Step"
+      "step": "Step",
+      "stepOneTitle": "YOUR INFO"
     },
     "popup": {
       "done": "Done"

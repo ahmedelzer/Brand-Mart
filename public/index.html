@@ -11,15 +11,6 @@
     />
 
     <title>Famous Burger</title>
-    <script>
-      // Fetch title from title.txt and set it as the document title
-      fetch("./title.txt")
-        .then((response) => response.text())
-        .then((text) => {
-          document.title = text; // Set the fetched text as the document's title
-        })
-        .catch((error) => console.error("Error fetching title:", error));
-    </script>
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
