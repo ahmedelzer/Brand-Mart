@@ -1,9 +1,15 @@
 import axios from "axios";
-export const baseURL = "http://maingatewayapi.ihs-solutions.com:8000";
-export const defaultProjectProxyRoute =
-  "http://maingatewayapi.ihs-solutions.com:8000/BrandingMart/api/";
-export const defaultProjectProxyRouteWithoutAPI =
-  "http://maingatewayapi.ihs-solutions.com:8000/BrandingMart/";
+export const domainURL = "41.196.0.25";
+export const baseURL = "http://" + domainURL + ":8000";
+export const defaultProjectProxyRoute = `${baseURL}/BrandingMart/api`;
+export const defaultProjectProxyRouteWithoutAPI = `${baseURL}/BrandingMart/`;
+export const publicImageURL = "http://" + domainURL + ":5056/";
+export const websocketBaseURI = "ws://" + domainURL + ":9000";
+// export const baseURL = "https://maingatewayapi.ihs-solutions.com:8000";
+// export const defaultProjectProxyRoute =
+//   "https://maingatewayapi.ihs-solutions.com:8000/BrandingMart/api/";
+// export const defaultProjectProxyRouteWithoutAPI =
+//   "https://maingatewayapi.ihs-solutions.com:8000/BrandingMart/";
 export const languageName = window.localStorage.getItem("language");
 export const languageID = window.localStorage.getItem("languageID");
 export const projectProxyRoute =

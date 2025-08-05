@@ -7,7 +7,7 @@ import { LanguageContext } from "../../context/Language";
 import LanguageSelector from "./LanguageSelector";
 
 const CategoryNavMobile = ({ setCatNavMobile }) => {
-  const { localization } = useContext(LanguageContext);
+  const { localization, routes } = useContext(LanguageContext);
 
   return (
     <div className={categoryNavMobileStyles.container}>
@@ -18,7 +18,7 @@ const CategoryNavMobile = ({ setCatNavMobile }) => {
         <FiX className={categoryNavMobileStyles.closeButtonIcon} />
       </div>
       <div className={categoryNavMobileStyles.linkWrapper}>
-        {localization.routes?.map((item) => (
+        {routes?.map((item) => (
           <Link
             key={item.id} // Add a unique key
             to={item.route}

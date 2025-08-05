@@ -1,66 +1,46 @@
 import React, { useContext } from "react";
 import { staffStyles } from "./styles";
 import { LanguageContext } from "../context/Language";
+import useFetch from "../hooks/APIsFunctions/useFetch";
+import { GetProjectUrl, SetReoute } from "../request";
+import Loading from "./Loading/Loading";
+
 function Staff() {
   const { localization } = useContext(LanguageContext);
-  const stuff = [
-    {
-      OrganizationDepartmentID: "a1d3c2f9-bd3b-4c7e-8e23-45b9c6e1d1a2",
-      MemberTypeID: "f4e2a1c8-7b3f-4b2e-9d8a-98b7f6e5d3c9",
-      PersonID: "c3b5e8d4-a6b3-4f7e-9d12-5b2e9f8d3c2b",
-      ProfileImage: "https://example.com/images/staff/john_doe.jpg",
-      StaffMemberID: "c1a7f7d5-8fbb-4f6d-91c8-7292bcf1b44b",
-      FirstName: "John",
-      LastName: "Doe",
-      Birthdate: "1985-04-23T00:00:00",
-      Gender: 1,
-      MemberTypeName: "Software Engineer",
-      OrganizationDepartmentName: "Engineering",
-      OrganizationDepartmentDegree: 5,
-    },
-    {
-      OrganizationDepartmentID: "a1d3c2f9-bd3b-4c7e-8e23-45b9c6e1d1a2",
-      MemberTypeID: "f4e2a1c8-7b3f-4b2e-9d8a-98b7f6e5d3c9",
-      PersonID: "c3b5e8d4-a6b3-4f7e-9d12-5b2e9f8d3c2b",
-      ProfileImage: "https://example.com/images/staff/john_doe.jpg",
-      StaffMemberID: "c1a7f7d5-8fbb-4f6d-91c8-7292bcf1b44b",
-      FirstName: "John",
-      LastName: "Doe",
-      Birthdate: "1985-04-23T00:00:00",
-      Gender: 1,
-      MemberTypeName: "Software Engineer",
-      OrganizationDepartmentName: "Engineering",
-      OrganizationDepartmentDegree: 5,
-    },
-    {
-      OrganizationDepartmentID: "b2c4e5d6-8f4d-4c7e-9a56-32d9a6f4c5a7",
-      MemberTypeID: "e5f3d7a8-9b4e-4c3d-8f4e-6b9c7f8a5d4a",
-      PersonID: "d7e4c5b6-9f3d-4e2b-8f6a-45b9e7d6f8c2",
-      ProfileImage: "https://example.com/images/staff/jane_smith.jpg",
-      StaffMemberID: "d3f8e1b3-bd6a-4d63-bf3c-4fcf98e6c7b2",
-      FirstName: "Jane",
-      LastName: "Smith",
-      Birthdate: "1990-07-15T00:00:00",
-      Gender: 2,
-      MemberTypeName: "Marketing Specialist",
-      OrganizationDepartmentName: "Marketing",
-      OrganizationDepartmentDegree: 3,
-    },
-    {
-      OrganizationDepartmentID: "c6f3b8d4-7a4d-4c8e-9d6b-5a9e7c6f5d8a",
-      MemberTypeID: "f7d2c3a9-8d6e-4c5f-9e7a-3b5d6c8e9f1b",
-      PersonID: "e8d3c5b7-a9e4-4f6d-8f4b-6c8d7f5b3e2a",
-      ProfileImage: "https://example.com/images/staff/emily_johnson.jpg",
-      StaffMemberID: "e7d4f9b2-5b2d-4f64-bb6f-3c2e8f59a7d4",
-      FirstName: "Emily",
-      LastName: "Johnson",
-      Birthdate: "1978-11-02T00:00:00",
-      Gender: 2,
-      MemberTypeName: "HR Manager",
-      OrganizationDepartmentName: "Human Resources",
-      OrganizationDepartmentDegree: 4,
-    },
-  ];
+  SetReoute("BrandingMartHR");
+  const { data: stuff, isLoading } = useFetch(
+    "/DailyStaffAttendance/GetDailyStaffAttendances?PageSize=100&PageNumber=1",
+    GetProjectUrl()
+  );
+  // {
+  //           "dailyStaffAttendanceID": "738adba1-e77d-4ee3-a410-3300f1b04375",
+  //           "organizationShiftID": "e12b3d2a-eefd-4b4e-a437-99f38b62d4ef",
+  //           "staffMemberID": "5d1cb48f-0640-4027-bc41-14dc209bdc33",
+  //           "dayID": "ce19fb9f-2e10-4444-ae0f-009f5ead133c",
+  //           "day": null,
+  //           "attendanceDate": "2025-08-04",
+  //           "scheduledStartTime": "18:00:00",
+  //           "scheduledEndTime": "22:00:00",
+  //           "firstDetectedTime": "2025-08-04T18:41:34.02",
+  //           "lastDetectedTime": "2025-08-04T18:42:49.597",
+  //           "firstDetectedTimeFlag": -2,
+  //           "lastDetectedTimeFlag": -2,
+  //           "lastEscapeTime": null,
+  //           "lastReconnectTime": null,
+  //           "totalEscapeDuration": "00:00:00",
+  //           "isEscapeCritical": false,
+  //           "reviewStatusIndex": 0,
+  //           "supervisorNotes": null,
+  //           "fullName": "Ashraf Shmrdn",
+  //           "memberTypeName": "طباخ",
+  //           "organizationDepartmentName": "المطبج",
+  //           "staffMemberCodeNumber": "SM001",
+  //           "personalImagePath": "StaffImages/Ashraf.png",
+  //           "detectedTime": "0001-01-01T00:00:00"
+  //       }
+  if (!stuff && isLoading) {
+    return <Loading />;
+  }
   return (
     <div className={staffStyles.container}>
       <section className={staffStyles.section}>
@@ -72,23 +52,27 @@ function Staff() {
         </h2>
 
         <div className={staffStyles.grid}>
-          {stuff.map((person) => (
-            <div className={staffStyles.cardContainer} key={person.PersonID}>
+          {stuff?.dataSource?.map((person) => (
+            <div
+              className={staffStyles.cardContainer}
+              key={person.staffMemberID}
+            >
               <div className={staffStyles.card}>
                 <div className={staffStyles.imageWrapper}>
                   <div className={staffStyles.imageInner}>
                     <img
-                      src={person.ProfileImage}
+                      src={person?.profileImage}
                       className={staffStyles.image}
-                      alt={person.FirstName + " " + person.LastName}
+                      alt={person.fullName}
                     />
                   </div>
                 </div>
                 <div className={staffStyles.content}>
-                  <h5 className={staffStyles.name}>
-                    {person.FirstName + " " + person.LastName}
-                  </h5>
-                  <p className={staffStyles.role}>{person.MemberTypeName}</p>
+                  <h5 className={staffStyles.name}>{person.fullName}</h5>
+                  <p className={staffStyles.role}>{person.memberTypeName}</p>
+                  <p className={staffStyles.role}>
+                    working in: {person.organizationDepartmentName}
+                  </p>
                   <ul className={staffStyles.socialIcons}>
                     <a href="#!" className={staffStyles.icon}>
                       <svg
@@ -131,6 +115,7 @@ function Staff() {
               </div>
             </div>
           ))}
+          {isLoading && <Loading />}
         </div>
       </section>
     </div>

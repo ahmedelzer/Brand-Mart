@@ -10,7 +10,7 @@ import UserPanel from "./UserPanel";
 function Header() {
   const [open, setOpen] = useState(false);
   const [selectedPage, setSelectedPage] = useState(window.location.pathname);
-  const { localization } = useContext(LanguageContext);
+  const { localization, routes } = useContext(LanguageContext);
 
   function ChangePage(e) {
     setSelectedPage(e.target.title);
@@ -25,7 +25,7 @@ function Header() {
         </div>
         <div className={headerStyles.navListWrapper}>
           <ul className={headerStyles.navList}>
-            {localization.routes.map((item) => (
+            {routes.map((item) => (
               <li
                 key={item.id}
                 id={`menu-item-${item.id}`}

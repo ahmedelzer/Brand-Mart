@@ -25,38 +25,40 @@ function ContactUs() {
           <Request />
 
           <div className={contactUsStyles.requestWrapper}>
-            <div className={contactUsStyles.contactInfoWrapper}>
-              {masterBranch.CompanyBranchContacts.map((contact) => (
-                <div
-                  className={contactUsStyles.infoBlock}
-                  key={contact.ContactTypeID}
-                >
-                  <div className={contactUsStyles.infoIconWrapper}>
-                    <div className={contactUsStyles.iconContainer}>
-                      <div className={contactUsStyles.iconStyle}>
-                        {/* SVG Icon */}
-                        {GetIconContact(contact.CodeNumber, 30)}
+            {masterBranch && (
+              <div className={contactUsStyles.contactInfoWrapper}>
+                {masterBranch.CompanyBranchContacts?.map((contact) => (
+                  <div
+                    className={contactUsStyles.infoBlock}
+                    key={contact.ContactTypeID}
+                  >
+                    <div className={contactUsStyles.infoIconWrapper}>
+                      <div className={contactUsStyles.iconContainer}>
+                        <div className={contactUsStyles.iconStyle}>
+                          {/* SVG Icon */}
+                          {GetIconContact(contact.CodeNumber, 30)}
+                        </div>
                       </div>
-                    </div>
-                    <div className={contactUsStyles.infoTextWrapper}>
-                      <p className={contactUsStyles.infoTitle}>
-                        {contact.Contact}
-                      </p>
-                      {/* <p className={contactUsStyles.infoDetails}>
+                      <div className={contactUsStyles.infoTextWrapper}>
+                        <p className={contactUsStyles.infoTitle}>
+                          {contact.Contact}
+                        </p>
+                        {/* <p className={contactUsStyles.infoDetails}>
                       {localization.contact.sales.email}
                     </p>
                     <p className={contactUsStyles.infoDetails}>
                       {localization.contact.sales.phone}
                     </p> */}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
 
-              {/* Repeat for other info blocks, like Sales, Press, Bug Report */}
+                {/* Repeat for other info blocks, like Sales, Press, Bug Report */}
 
-              {/* Add the rest of the contact info sections similarly */}
-            </div>
+                {/* Add the rest of the contact info sections similarly */}
+              </div>
+            )}
           </div>
         </div>
       </section>

@@ -132,6 +132,7 @@
       "contactText": "Contact",
       "workingHours": "Working hours",
       "weekdays": "Monday - Friday: 08:00 - 17:00",
+      "mapButton": "Open in Google Maps",
       "weekends": "Saturday & Sunday: 08:00 - 12:00"
     },
     "staff": {

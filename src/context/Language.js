@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import { json } from "react-router-dom";
 import staticLocalization from "./staticLocalization.json";
 //context
@@ -11,7 +11,21 @@ const Language = ({ children }) => {
   );
 
   const [localization, setLocalization] = useState(staticLocalization);
+  const [routes, setRoutes] = useState([
+    { title: "Home", route: "/", id: 1 },
+    // { title: "Portfolio", route: "/portfolio", id: 2 },
+    { title: "About us", route: "/about", id: 3 },
+    { title: "Services", route: "/services", id: 4 },
+    { title: "Contact us", route: "/contact", id: 5 },
+  ]);
+  useEffect(() => {
+    const updatedRoutes = routes.map((route) => {
+      const match = localization.routes.find((r) => r.id === route.id);
+      return match ? { ...route, title: match.title } : route;
+    });
 
+    setRoutes(updatedRoutes);
+  }, [localization]);
   return (
     <LanguageContext.Provider
       value={{
@@ -19,6 +33,7 @@ const Language = ({ children }) => {
         setLan,
         Right,
         setRight,
+        routes,
         localization,
         setLocalization,
       }}

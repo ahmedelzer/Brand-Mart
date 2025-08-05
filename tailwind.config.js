@@ -7,7 +7,7 @@ module.exports = {
     },
     container: {
       padding: {
-        DEFAULT: "15px",
+        DEFAULT: "12px",
       },
       center: true,
     },
@@ -27,20 +27,6 @@ module.exports = {
           DEFAULT: "#FF6700",
           hover: "#FF4500",
         },
-      },
-      // colors: {
-      //   body: "#1D1F23",
-      //   primary: "rgb(148 163 184 )",
-      //   card: " rgb(64 64 64)",
-      //   text: "white",
-      //   accent: {
-      //     DEFAULT: "#F6CD46",
-      //     hover: "#E1B72E",
-      //   },
-      // },
-
-      backgroundImage: {
-        mainSlider: "url('img/mainSlider_bg.png')",
       },
       keyframes: {
         shake: {

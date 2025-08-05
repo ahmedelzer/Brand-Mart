@@ -10,7 +10,7 @@ import { LanguageContext } from "../../context/Language";
 
 const UseFetchWithoutBaseUrl = (realurl) => {
   // console.log(base_URL, GetProjectUrl());
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { Lan } = useContext(LanguageContext);
   //base_URL = "";
 
@@ -41,7 +41,7 @@ const UseFetchWithoutBaseUrl = (realurl) => {
         setError(error);
         if (error.code === 401) {
           //todo handle error message
-          RedirectToLogin(navigate, error);
+          // RedirectToLogin(navigate, error);
         }
       }
       setIsLoading(false);

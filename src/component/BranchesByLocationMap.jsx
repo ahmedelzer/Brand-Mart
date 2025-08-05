@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -9,6 +9,7 @@ import {
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { GetIconContact } from "./GetIconContact";
+import { LanguageContext } from "../context/Language";
 // Fix for Leaflet marker icons not showing correctly
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -20,6 +21,8 @@ L.Icon.Default.mergeOptions({
 
 const BranchesByLocationMap = ({ branches }) => {
   const [selectedBranch, setSelectedBranch] = useState(branches[0]);
+  const { localization } = useContext(LanguageContext);
+
   const handleMapClick = (e, branch) => {
     setSelectedBranch(branch);
   };
@@ -39,8 +42,8 @@ const BranchesByLocationMap = ({ branches }) => {
         center={
           branches.length > 0
             ? [
-                +branches[0].LocationLatitudePoint,
-                +branches[0].LocationLongitudePoint,
+                +branches[0].locationLatitudePoint,
+                +branches[0].locationLongitudePoint,
               ]
             : [30.032957707631663, 31.2599301782983]
         }
@@ -50,12 +53,12 @@ const BranchesByLocationMap = ({ branches }) => {
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <MapClickHandler />
-        {branches.map((branch) => (
+        {branches?.map((branch) => (
           <Marker
-            key={branch.CompanyBranchID}
+            key={branch.companyBranchID}
             position={[
-              +branch.LocationLatitudePoint,
-              +branch.LocationLongitudePoint,
+              +branch.locationLatitudePoint,
+              +branch.locationLongitudePoint,
             ]}
             eventHandlers={{
               click: (e) => handleMapClick(e, branch),
@@ -64,9 +67,9 @@ const BranchesByLocationMap = ({ branches }) => {
           >
             <Popup>
               <div>
-                <h3>{selectedBranch.CompanyName}</h3>
-                <p>{selectedBranch.Address}</p>
-                {selectedBranch.CompanyBranchContacts.map((contact) => (
+                <h3>{selectedBranch.companyName}</h3>
+                <p>{selectedBranch.address}</p>
+                {selectedBranch.companyBranchContacts?.map((contact) => (
                   <p className="flex">
                     {GetIconContact(contact.CodeNumber, 20)}
                     <p className="!mx-1 m-0 !p-0">{contact.Contact}</p>
@@ -78,13 +81,13 @@ const BranchesByLocationMap = ({ branches }) => {
                 <button
                   onClick={() =>
                     window.open(
-                      `https://www.google.com/maps/search/?api=1&query=${selectedBranch.LocationLatitudePoint},${selectedBranch.LocationLongitudePoint}`,
+                      `https://www.google.com/maps/search/?api=1&query=${selectedBranch.locationLatitudePoint},${selectedBranch.locationLongitudePoint}`,
                       "_blank"
                     )
                   }
                   className="btn btn-accent !capitalize"
                 >
-                  Open in Google Maps
+                  {localization.about.companyInfo.mapButton}
                 </button>
               </div>
             </Popup>

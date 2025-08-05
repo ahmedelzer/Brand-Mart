@@ -9,69 +9,29 @@
 import React, { useState, createContext, useEffect } from "react";
 import { json } from "react-router-dom";
 import useTimer from "../hooks/APIsFunctions/useTimer";
+import useFetch from "../hooks/APIsFunctions/useFetch";
+import { GetProjectUrl, SetReoute } from "../request";
 
 //context
 export const ContactContext = createContext();
 
 const Contact = ({ children }) => {
-  const branches = [
-    {
-      CompanyID: 12345,
-      CompanyName: "Tech Innovations Ltd.",
-      AddressLocationID: 67890,
-      CompanyBranchID: 54321,
-      Address: "123 Business St., Silicon Valley, CA",
-      LocationLatitudePoint: "37.7749",
-      LocationLongitudePoint: "-122.4194",
-      CompanyBranchContacts: [
-        {
-          CompanyBranchContactID: "b8d6c3a4-e92f-4b73-b1b2-c4f4b07805a0",
-          CodeNumber: 1,
-          CompanyBranchID: "54321",
-          ContactTypeID: "3e23a83e-83d3-4d62-b462-bc41614f4f27",
-          Contact: "john.doe@example.com",
-          IsActive: true,
-        },
-        {
-          CompanyBranchContactID: "d2595f9f-47b7-43a1-a2ff-4732ff321b7e",
-          CodeNumber: 0,
-          CompanyBranchID: "54321",
-          ContactTypeID: "67b87d6d-6780-4b4b-b02d-b17b8dcd83e3",
-          Contact: "+1234567890",
-          IsActive: false,
-        },
-      ],
-    },
-    {
-      CompanyID: 12346,
-      AddressLocationID: 67891,
-      CompanyBranchID: 54322,
-      CompanyName: "Creative Solutions Inc.",
-      Address: "456 Innovation Ave., San Francisco, CA",
-      LocationLatitudePoint: "37.7749",
-      LocationLongitudePoint: "-12.4195",
-      CompanyBranchContacts: [
-        {
-          CompanyBranchContactID: "b8d6c3a4-e92f-4b73-b1b2-c4f4b07805a0",
-          CodeNumber: 1,
-          CompanyBranchID: "54321",
-          ContactTypeID: "3e23a83e-83d3-4d62-b462-bc41614f4f27",
-          Contact: "john.doe@example.com",
-          IsActive: true,
-        },
-        {
-          CompanyBranchContactID: "d2595f9f-47b7-43a1-a2ff-4732ff321b7e",
-          CodeNumber: 0,
-          CompanyBranchID: "54321",
-          ContactTypeID: "67b87d6d-6780-4b4b-b02d-b17b8dcd83e3",
-          Contact: "+1234567890",
-          IsActive: false,
-        },
-      ],
-    },
-    // Add more branches as needed
-  ];
-  let masterBranch = branches[0];
+  const [branches, setBranches] = useState([]);
+  SetReoute("BrandingMartProjectAccounting");
+  const { data, isLoading, error } = useFetch(
+    "/Company/GetFullCompanyBranchesInfo",
+    GetProjectUrl()
+  );
+  useEffect(() => {
+    if (!isLoading && data) {
+      setBranches(data);
+    }
+  });
+
+  console.log("====================================");
+  console.log(data, isLoading, error);
+  console.log("====================================");
+  let masterBranch = branches.length > 0 ? branches[0] : null;
   return (
     <ContactContext.Provider
       value={{

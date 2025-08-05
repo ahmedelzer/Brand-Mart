@@ -9,7 +9,7 @@ import { LanguageContext } from "../../context/Language";
 import { GetIconContact } from "../GetIconContact";
 import { ContactContext } from "../../context/Contact";
 function Footer() {
-  const { localization } = useContext(LanguageContext);
+  const { localization, routes } = useContext(LanguageContext);
   const { branches, masterBranch } = useContext(ContactContext);
 
   return (
@@ -21,7 +21,7 @@ function Footer() {
               {localization.footer.categories}
             </h4>
             <ul className={footerStyles.linkList}>
-              {localization.routes?.map((item) => (
+              {routes?.map((item) => (
                 <li className={footerStyles.linkItem} key={item.id}>
                   <Link
                     to={item.route}
@@ -183,27 +183,23 @@ function Footer() {
             <span className={footerStyles.content}>
               {localization.footer.copyRight}
             </span>
-            <div className={footerStyles.socialLinks}>
-              {masterBranch.CompanyBranchContacts.map((contact) => {
-                //! take the link of media
-                if (contact.CodeNumber > 9)
-                  return (
-                    <a
-                      className={footerStyles.linkIcon}
-                      href={"#"}
-                      key={contact.CompanyBranchContactID}
-                    >
-                      {GetIconContact(contact.CodeNumber, 20)}
-                    </a>
-                  );
-              })}
-              {/* <Link className={footerStyles.linkIcon}>
-                <FaXTwitter />
-              </Link>
-              <Link className={footerStyles.linkIcon}>
-                <FaInstagram size={20} />
-              </Link> */}
-            </div>
+            {masterBranch && (
+              <div className={footerStyles.socialLinks}>
+                {masterBranch.CompanyBranchContacts?.map((contact) => {
+                  //! take the link of media
+                  if (contact.CodeNumber > 9)
+                    return (
+                      <a
+                        className={footerStyles.linkIcon}
+                        href={"#"}
+                        key={contact.CompanyBranchContactID}
+                      >
+                        {GetIconContact(contact.CodeNumber, 20)}
+                      </a>
+                    );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>
