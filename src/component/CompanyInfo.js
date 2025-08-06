@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import PageHeading from "./PageHeading";
-import { sectionStyles } from "./styles";
+import { playlistStyles, sectionStyles } from "./styles";
 import { LanguageContext } from "../context/Language";
 import { GetIconContact } from "./GetIconContact";
 import BranchesByLocationMap from "./BranchesByLocationMap";
@@ -102,8 +102,13 @@ function CompanyInfo() {
                     </div>
                   </li>
                 )}
-              {masterBranch && masterBranch?.companyWorkHours && (
-                <li className={sectionStyles.listItem}>
+              {masterBranch && Array.isArray(masterBranch.companyWorkHours) && (
+                <li
+                  className={sectionStyles.listItem}
+                  key={
+                    masterBranch.companyWorkHours.CompanyBranchDayWorkHoursID
+                  }
+                >
                   <div className={sectionStyles.iconContainer}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -125,12 +130,32 @@ function CompanyInfo() {
                     <h3 className={sectionStyles.title}>
                       {localization.about.companyInfo.workingHours}
                     </h3>
-                    <p className={sectionStyles.text}>
-                      {localization.about.companyInfo.weekdays}
-                    </p>
-                    <p className={sectionStyles.text}>
-                      {localization.about.companyInfo.weekends}
-                    </p>
+                    <ul className="mt-2">
+                      {[
+                        "Sunday",
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                      ].map((day, index) => {
+                        const today = new Date().getDay(); // Sunday = 0
+                        const isToday = today === index;
+
+                        return (
+                          <li
+                            key={day}
+                            className={`flex justify-between gap-2 text-sm md:text-base px-2 py-1 !text-primary rounded ${
+                              isToday ? "bg-text opacity-50" : ""
+                            }`}
+                          >
+                            <span>{day}</span>
+                            <span>Open 24 hours</span>
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </div>
                 </li>
               )}

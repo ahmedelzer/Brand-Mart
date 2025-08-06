@@ -10,10 +10,6 @@ import { LanguageContext } from "../context/Language";
 import { defaultProjectProxyRoute } from "../request";
 import MainContentSection from "../component/MainContentSection";
 function Home() {
-  const { data: postData } = useFetch(
-    "/Home/GetFullHomePosts?PageSize=11&PageNumber=1",
-    defaultProjectProxyRoute
-  );
   const { localization } = useContext(LanguageContext);
   // if (isLoading) {
   //   return <Loading />;
@@ -37,7 +33,7 @@ function Home() {
           <Card key={post.homePostID} postTitle={post.postTitle} />
         ))}
       </div> */}
-      <Posts data={postData} />
+      <Posts />
     </div>
   );
 }

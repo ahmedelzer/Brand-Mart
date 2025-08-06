@@ -1,0 +1,10 @@
+
+ public record CompanyBranchDayWorkHours
+ {
+  public Guid CompanyBranchDayWorkHoursID { get; set; }
+    public string DayName { get; set; }
+     public Guid CompanyBranchID { get; set; }
+     public Guid DayID { get; set; }
+     public TimeOnly StartTime { get; set; }
+     public TimeOnly EndTime { get; set; }
+ }

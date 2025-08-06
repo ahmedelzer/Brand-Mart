@@ -19,7 +19,8 @@ import { createRowCache } from "@devexpress/dx-react-grid";
 import { updateRows } from "./Pagination/updateRows";
 import MainContent from "./MainContent";
 import Loading from "./Loading/Loading";
-const VIRTUAL_PAGE_SIZE = 2;
+import { listObserverStyle } from "./styles";
+const VIRTUAL_PAGE_SIZE = 10;
 
 export default function MainContentSection() {
   const [state, dispatch] = useReducer(
@@ -47,6 +48,9 @@ export default function MainContentSection() {
   const observerCallback = useCallback(
     (entries) => {
       const [entry] = entries;
+      console.log("====================================");
+      console.log(rows.length, totalCount, rows.length < totalCount, "loading");
+      console.log("====================================");
       if (entry.isIntersecting && rows.length < totalCount && !loading) {
         getRemoteRows(currentSkip, VIRTUAL_PAGE_SIZE * 2, dispatch);
         setCurrentSkip(currentSkip + 1);
@@ -95,6 +99,9 @@ export default function MainContentSection() {
             index={index}
           />
         ))}
+      {/* {rows && (
+        <div ref={observerRef} className={listObserverStyle.container} />
+      )} */}
       {state.loading && <Loading />}
     </div>
   );

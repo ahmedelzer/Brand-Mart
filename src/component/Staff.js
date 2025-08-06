@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import { staffStyles } from "./styles";
 import { LanguageContext } from "../context/Language";
 import useFetch from "../hooks/APIsFunctions/useFetch";
-import { GetProjectUrl, SetReoute } from "../request";
+import { baseURL, GetProjectUrl, publicImageURL, SetReoute } from "../request";
 import Loading from "./Loading/Loading";
+import { convertGMTToLocalTime } from "../utils/timeUtils";
 
 function Staff() {
   const { localization } = useContext(LanguageContext);
@@ -12,6 +13,8 @@ function Staff() {
     "/DailyStaffAttendance/GetDailyStaffAttendances?PageSize=100&PageNumber=1",
     GetProjectUrl()
   );
+  const gmtTime = "2025-08-06T12:00:00Z"; // Sample GMT time
+  const { localTime, formattedOffset } = convertGMTToLocalTime(gmtTime);
   // {
   //           "dailyStaffAttendanceID": "738adba1-e77d-4ee3-a410-3300f1b04375",
   //           "organizationShiftID": "e12b3d2a-eefd-4b4e-a437-99f38b62d4ef",
@@ -38,6 +41,9 @@ function Staff() {
   //           "personalImagePath": "StaffImages/Ashraf.png",
   //           "detectedTime": "0001-01-01T00:00:00"
   //       }
+  console.log("====================================");
+  console.log(localTime, formattedOffset, "time");
+  console.log("====================================");
   if (!stuff && isLoading) {
     return <Loading />;
   }
@@ -61,7 +67,7 @@ function Staff() {
                 <div className={staffStyles.imageWrapper}>
                   <div className={staffStyles.imageInner}>
                     <img
-                      src={person?.profileImage}
+                      src={`${publicImageURL}/${person?.personalImagePath}`}
                       className={staffStyles.image}
                       alt={person.fullName}
                     />
@@ -71,7 +77,10 @@ function Staff() {
                   <h5 className={staffStyles.name}>{person.fullName}</h5>
                   <p className={staffStyles.role}>{person.memberTypeName}</p>
                   <p className={staffStyles.role}>
-                    working in: {person.organizationDepartmentName}
+                    {localization.about.staff.workingIn}{" "}
+                    <span className="!text-primary font-bold">
+                      {person.organizationDepartmentName}
+                    </span>
                   </p>
                   <ul className={staffStyles.socialIcons}>
                     <a href="#!" className={staffStyles.icon}>
