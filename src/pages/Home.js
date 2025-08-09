@@ -10,19 +10,11 @@ import { LanguageContext } from "../context/Language";
 import { defaultProjectProxyRoute } from "../request";
 import MainContentSection from "../component/MainContentSection";
 function Home() {
-  const { localization } = useContext(LanguageContext);
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
-  // if (error && !fullHomeMainContents) {
-  //   // Handle error, e.g., display an error message
-  //   return <div>Error: {error.message}</div>;
-  // }
-
+  const { localization, Lan } = useContext(LanguageContext);
   return (
     <div>
       <Hero />
-      <div className={contentStyles.container}>
+      <div className={contentStyles.container} key={Lan}>
         <h2 className={contentStyles.title}>
           {localization.home.mainContentTitle}
         </h2>

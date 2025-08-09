@@ -20,6 +20,7 @@ import { updateRows } from "./Pagination/updateRows";
 import MainContent from "./MainContent";
 import Loading from "./Loading/Loading";
 import { listObserverStyle } from "./styles";
+import { LanguageContext } from "../context/Language";
 const VIRTUAL_PAGE_SIZE = 10;
 
 export default function MainContentSection() {
@@ -28,6 +29,7 @@ export default function MainContentSection() {
     initialState(VIRTUAL_PAGE_SIZE, keys.homeMainContentsKey)
   );
   const [currentSkip, setCurrentSkip] = useState(1);
+  // const [key, setKey] = useState(1);
   const observerRef = useRef();
   const dataSourceAPI = (query, skip, take) => {
     SetReoute("BrandingMart");

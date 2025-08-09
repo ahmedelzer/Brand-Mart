@@ -5,11 +5,14 @@ import { LanguageContext } from "../context/Language";
 import { GetIconContact } from "./GetIconContact";
 import BranchesByLocationMap from "./BranchesByLocationMap";
 import { ContactContext } from "../context/Contact";
+import { convertUTCToLocalTime, getMinutesFromTime } from "../utils/timeUtils";
 
 function CompanyInfo() {
   const { localization } = useContext(LanguageContext);
   const { branches, masterBranch } = useContext(ContactContext);
-
+  console.log("====================================");
+  console.log(localization.about);
+  console.log("====================================");
   return (
     <section className={sectionStyles.container} id="contact">
       <div className={sectionStyles.heading}>
@@ -102,63 +105,75 @@ function CompanyInfo() {
                     </div>
                   </li>
                 )}
-              {masterBranch && Array.isArray(masterBranch.companyWorkHours) && (
-                <li
-                  className={sectionStyles.listItem}
-                  key={
-                    masterBranch.companyWorkHours.CompanyBranchDayWorkHoursID
-                  }
-                >
-                  <div className={sectionStyles.iconContainer}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className={sectionStyles.icon}
-                    >
-                      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
-                      <path d="M12 7v5l3 3"></path>
-                    </svg>
-                  </div>
-                  <div className={sectionStyles.itemContent}>
-                    <h3 className={sectionStyles.title}>
-                      {localization.about.companyInfo.workingHours}
-                    </h3>
-                    <ul className="mt-2">
-                      {[
-                        "Sunday",
-                        "Monday",
-                        "Tuesday",
-                        "Wednesday",
-                        "Thursday",
-                        "Friday",
-                        "Saturday",
-                      ].map((day, index) => {
-                        const today = new Date().getDay(); // Sunday = 0
-                        const isToday = today === index;
+              {masterBranch?.companyBranchWorkHours?.map((workHour) => {
+                const today = new Date().getDay(); // Sunday = 0
 
-                        return (
-                          <li
-                            key={day}
-                            className={`flex justify-between gap-2 text-sm md:text-base px-2 py-1 !text-primary rounded ${
-                              isToday ? "bg-text opacity-50" : ""
-                            }`}
-                          >
-                            <span>{day}</span>
-                            <span>Open 24 hours</span>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                </li>
-              )}
+                const currentTime = new Date();
+                const isToday = today === workHour.dayIndex;
+
+                const SOON_THRESHOLD_MINUTES = 30; // Time before opening to show "Open Soon"
+                const NEAR_CLOSE_THRESHOLD_MINUTES = 30; // Time before closing to show "Near Close"
+
+                const localStartTime = convertUTCToLocalTime(
+                  workHour.startTime
+                );
+                const localEndTime = convertUTCToLocalTime(workHour.endTime);
+
+                // Convert times to minutes for comparison
+                const nowMinutes =
+                  currentTime.getHours() * 60 + currentTime.getMinutes();
+                const startMinutes = getMinutesFromTime(localStartTime);
+                const endMinutes = getMinutesFromTime(localEndTime);
+
+                // Determine if current time is outside of working hours
+                let statusLabel =
+                  localization.about.companyInfo.timeStatus.closed;
+
+                if (isToday) {
+                  if (nowMinutes >= startMinutes && nowMinutes <= endMinutes) {
+                    // Inside working hours
+                    if (
+                      endMinutes - nowMinutes <=
+                      NEAR_CLOSE_THRESHOLD_MINUTES
+                    ) {
+                      statusLabel =
+                        localization.about.companyInfo.timeStatus.near;
+                    } else {
+                      statusLabel =
+                        localization.about.companyInfo.timeStatus.open;
+                    }
+                  } else if (
+                    nowMinutes < startMinutes &&
+                    startMinutes - nowMinutes <= SOON_THRESHOLD_MINUTES
+                  ) {
+                    // Before start time but within "Open Soon" threshold
+                    statusLabel =
+                      localization.about.companyInfo.timeStatus.openSoon;
+                  }
+                }
+
+                return (
+                  <li
+                    key={workHour.companyBranchDayWorkHoursID}
+                    className={`flex justify-between gap-2 text-sm md:text-base px-2 py-1 !text-primary rounded ${
+                      isToday ? "bg-text opacity-50" : ""
+                    }`}
+                  >
+                    <span>{workHour.dayName}</span>
+                    <span>
+                      {isToday && (
+                        <span
+                          className="me-2 font-bold text-primary"
+                          style={{ opacity: 0.6 }}
+                        >
+                          ({statusLabel})
+                        </span>
+                      )}
+                      {localStartTime} - {localEndTime}
+                    </span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           {branches.length > 0 && (
