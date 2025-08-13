@@ -42,7 +42,7 @@
 
 .landing {
   @apply min-h-screen bg-center relative mt-5 transition-all;
-  background-image: url("./assets/hero1lg.jpg");
+  background-image: url("./assets/hero-lg.jpg");
   background-size: 100% 100%; /* Still a custom property */
 }
 
@@ -61,21 +61,21 @@
 /* For small screens (up to 640px) */
 @media (max-width: 640px) {
   .landing {
-    background-image: url("./assets/humHeroSM.jpg") !important;
+    background-image: url("./assets/hero-sm.jpg") !important;
   }
 }
 
 /* For medium screens (768px and up) */
 @media (min-width: 768px) and (max-width: 959px) {
   .landing {
-    background-image: url("./assets/humHeroSM.jpg") !important;
+    background-image: url("./assets/hero-sm.jpg") !important;
   }
 }
 
 /* For large screens (960px and up) */
 @media (min-width: 960px) {
   .landing {
-    background-image: url("./assets/hero1lg.jpg") !important;
+    background-image: url("./assets/hero-lg.jpg") !important;
   }
 }
 @media (max-width: 767px) {

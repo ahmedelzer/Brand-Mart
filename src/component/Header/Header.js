@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import Logo from "../../assets/logoHum.png";
+import Logo from "../../assets/logo.png";
 import CategoryNavMobile from "./CategoryNavMobile";
 import { Link } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";

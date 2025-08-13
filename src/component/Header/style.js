@@ -2,7 +2,7 @@ export const headerStyles = {
   container: "w-full container m-auto",
   headerWrapper: "flex !flex-nowrap items-center justify-between py-1",
   logoWrapper: "flex items-center",
-  logoImage: "w-[100px] h-[100px]",
+  logoImage: "w-[100px] h-[100px] rounded-lg item-center",
   navListWrapper: "hidden lg:flex !flex-row items-center space-x-6",
   navList: "flex !flex-row",
   navItem: "font-bold text-[19px] p-2 duration-300 transition-all",

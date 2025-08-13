@@ -25,7 +25,7 @@ function CompanyInfo() {
           <div className="h-full w-full md:w-1/2 pr-6 flex align-self-center">
             <ul className={sectionStyles.list}>
               <li className={sectionStyles.listItem}>
-                <div className={sectionStyles.iconContainer}>
+                <div className={sectionStyles.iconContainer + " !w-14"}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

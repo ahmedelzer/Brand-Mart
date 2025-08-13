@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa";
 import { footerStyles } from "./styles";
-import logo from "../../assets/logoHum.png";
+import logo from "../../assets/logo.png";
 import { headerStyles } from "../Header/style";
 import { LanguageContext } from "../../context/Language";
 import { GetIconContact } from "../GetIconContact";

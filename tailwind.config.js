@@ -18,14 +18,24 @@ module.exports = {
       xl: "1440px",
     },
     extend: {
+      // colors: {
+      //   body: "#111111",
+      //   primary: "#FF8C42",
+      //   card: "#2B2B2B",
+      //   text: "#FFFFFF",
+      //   accent: {
+      //     DEFAULT: "#FF6700",
+      //     hover: "#FF4500",
+      //   },
+      // },
       colors: {
-        body: "#111111",
-        primary: "#FF8C42",
-        card: "#2B2B2B",
-        text: "#FFFFFF",
+        body: "#0e2432", // dark navy background from the circle
+        primary: "#e7e8e9", // light grey-white from text
+        card: "#1d3442", // medium-dark blue tone
+        text: "#ffffff", // pure white
         accent: {
-          DEFAULT: "#FF6700",
-          hover: "#FF4500",
+          DEFAULT: "#8ca4b5", // blended blue-white (important text color)
+          hover: "#b9c9d4", // lighter hover shade
         },
       },
       keyframes: {

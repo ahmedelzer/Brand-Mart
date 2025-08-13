@@ -1,9 +1,9 @@
 import axios from "axios";
-export const domainURL = "41.196.0.25";
-export const baseURL = "http://" + domainURL + ":8000";
+export const domainURL = "ihs-solutions.com";
+export const baseURL = "https://" + domainURL + ":8000";
 export const defaultProjectProxyRoute = `${baseURL}/BrandingMart/api`;
 export const defaultProjectProxyRouteWithoutAPI = `${baseURL}/BrandingMart/`;
-export const publicImageURL = "http://" + domainURL + ":5056/";
+export const publicImageURL = "https://" + domainURL + ":5055/";
 export const websocketBaseURI = "ws://" + domainURL + ":9000";
 // export const baseURL = "https://maingatewayapi.ihs-solutions.com:8000";
 // export const defaultProjectProxyRoute =
