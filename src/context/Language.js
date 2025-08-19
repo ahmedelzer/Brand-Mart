@@ -15,7 +15,7 @@ const Language = ({ children }) => {
     { title: "Home", route: "/", id: 1 },
     // { title: "Portfolio", route: "/portfolio", id: 2 },
     { title: "About us", route: "/about", id: 3 },
-    // { title: "Services", route: "/services", id: 4 },
+    { title: "Services", route: "/services", id: 4 },
     { title: "Contact us", route: "/contact", id: 5 },
   ]);
   useEffect(() => {
