@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* :root {
+  --main-color: #1d1f23;
+  --main-color-text: white;
+  --text-color: #f6cd46;
+  --text-hover-color: #e1b72e;
+} */
+@layer base {
+  body {
+    @apply font-primary bg-body !text-text;
+  }
+  .h2 {
+    @apply text-3xl capitalize;
+  }
+  .card-shadow {
+    @apply shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)];
+  }
+  .grad {
+    @apply bg-gradient-to-t from-[#1F2126] to-[#33363D] drop-shadow-2xl;
+  }
+  .btn {
+    @apply h-[50px] flex justify-center items-center rounded-[8px] px-10 py-[10px] text-sm uppercase font-bold;
+  }
+  .btn-accent {
+    @apply bg-accent hover:bg-accent-hover transition-all;
+  }
+  .input {
+    @apply h-[50px] rounded-[8px] w-full outline-none px-6 !text-primary;
+  }
+  .heading {
+    @apply mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20;
+  }
+  .main-button {
+    @apply inline-block rounded border-2 border-accent text-accent hover:border-accent-hover hover:bg-accent hover:bg-opacity-10 hover:text-accent-hover px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring-0;
+  }
+}
+.wpml-ls-link {
+  @apply cursor-pointer;
+}
+
+.landing {
+  @apply min-h-screen bg-center relative mt-5 transition-all;
+  background-image: url("./assets/hero1lg.jpg");
+  background-size: 100% 100%; /* Still a custom property */
+}
+
+.landing .overlay {
+  @apply absolute inset-0; /* Equivalent to top, left, right, bottom 0 */
+  /* background-color: rgba(0, 0, 0, 0.6); */ /* You can apply this with Tailwind */
+}
+
+.landing .text {
+  @apply absolute left-0 top-1/2 transform -translate-y-1/2 w-1/2 p-12 text-text flex justify-end;
+}
+
+.landing .text .content {
+  @apply max-w-[500px];
+}
+/* For small screens (up to 640px) */
+@media (max-width: 640px) {
+  .landing {
+    background-image: url("./assets/humHeroSM.jpg") !important;
+  }
+}
+
+/* For medium screens (768px and up) */
+@media (min-width: 768px) and (max-width: 959px) {
+  .landing {
+    background-image: url("./assets/humHeroSM.jpg") !important;
+  }
+}
+
+/* For large screens (960px and up) */
+@media (min-width: 960px) {
+  .landing {
+    background-image: url("./assets/hero1lg.jpg") !important;
+  }
+}
+@media (max-width: 767px) {
+  .landing .text {
+    @apply w-full;
+  }
+
+  .landing .text .content {
+    @apply max-w-full;
+  }
+}
+
+.landing .text .content h2 {
+  @apply text-2xl font-normal leading-snug mb-5;
+}
+
+.landing .text .content p {
+  @apply text-sm leading-loose;
+}
+
+.landing .change-background {
+  @apply absolute top-1/2 transform -translate-y-1/2 text-text;
+}
+
+@media (max-width: 767px) {
+  .landing .change-background {
+    @apply hidden;
+  }
+}
+
+.landing .fa-angle-left {
+  @apply left-7;
+}
+
+.landing .fa-angle-right {
+  @apply right-7;
+}
+
+.landing .bullets {
+  @apply absolute left-1/2 bottom-7 transform -translate-x-1/2 flex;
+}
+
+.landing .bullets li {
+  @apply w-5 h-5 border border-text rounded-full mr-2.5;
+}
+
+.landing .bullets li.active {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
+
+/* Left-to-Right and Right-to-Left */
+/* .ltr {
+  @apply ltr;
+}
+
+.rtl {
+  @apply rtl;
+} */
+
+/* Animations for hid and show */
+.hid {
+  @apply opacity-0 blur-sm -translate-x-full transition-all duration-1000;
+}
+
+.show {
+  @apply opacity-100 blur-none translate-x-0 transition-all duration-1000;
+}
+
+/* Footer styles */
+@keyframes move {
+  0%,
+  100% {
+    @apply translate-x-0;
+  }
+  50% {
+    @apply -translate-x-2.5; /* 10px in Tailwind is `-translate-x-2.5` */
+  }
+}
+
+.arrow {
+  animation: move 1s infinite;
+}

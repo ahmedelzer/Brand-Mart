@@ -1,0 +1,18 @@
+------------------out of services------------------------
+1-make footer with the live data
+2-add in footer some data of media
+3-in home page set photo that display on the sm screens
+4-display portfolio page
+5-add coustom photos for staff && need an api to get them
+6-make card of services more modern and styles
+7-make required of contact us page work && and run it by gmail to send message
+8-change the primary color
+9-localization countryCodes in phoneNumber prams
+10-GetFullHomeMainContents && GetFullHomePosts && PortfolioWork set static pagination
+-----------------in services page----------------
+1-make validation of formContainer better to see it the mobile screens and display notify messages
+2-make sure of the mobile phone param validation 
+3-get solution to make personalInfo schema work with languages
+4-make resend work and the automatic resend
+5-make thankYou page better
+6-in user panel work switch account or delete it

@@ -1,0 +1,41 @@
+.body {
+  background-color: hsl(229, 24%, 87%);
+  font-family: ubuntu-regular;
+}
+
+@media (min-width: 765px) {
+  .body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+}
+.react-datepicker-popper {
+  z-index: 299;
+}
+.react-datepicker-wrapper {
+  display: block !important;
+}
+.font-bold {
+  font-family: ubuntu-bold;
+}
+
+.font-medium {
+  font-family: ubuntu-medium;
+}
+
+@font-face {
+  font-family: ubuntu-regular;
+  src: url(../../assets/fonts/Ubuntu-Regular.ttf);
+}
+
+@font-face {
+  font-family: ubuntu-medium;
+  src: url(../../assets/fonts/Ubuntu-Medium.ttf);
+}
+
+@font-face {
+  font-family: ubuntu-bold;
+  src: url(../../assets/fonts/Ubuntu-Bold.ttf);
+}

@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "name": "name",
+    "label": "Name",
+    "type": "text",
+    "placeholder": "e.g John Doe"
+  },
+  {
+    "id": 4,
+    "name": "BirthDay",
+    "label": "Birth Day",
+    "type": "date"
+  },
+  {
+    "id": 5,
+    "name": "gender",
+    "label": "Gender",
+    "type": "switch"
+  }
+]
