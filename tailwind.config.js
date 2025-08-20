@@ -21,7 +21,7 @@ module.exports = {
       colors: {
         body: "#ffffff",
         primary: "#FF8C42",
-        card: "rgba(247, 219, 219, 0.3)",
+        card: "rgb(247 219 219)",
         text: "#111111",
         accent: {
           DEFAULT: "#FF6700",

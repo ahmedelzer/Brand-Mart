@@ -15,6 +15,7 @@ import About from "./pages/About";
 import FormSteps from "./pages/FormSteps";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import RegistrationContext from "./context/Registration";
+import Redirect from "./component/Redirect";
 
 const Layout = () => {
   return (
@@ -34,7 +35,14 @@ const router = createBrowserRouter([
       { path: "/contact", element: <Contact /> },
       { path: "/about", element: <About /> },
       { path: "/services", element: <Services /> },
-      { path: "/portfolio", element: <NotFound404 /> },
+      {
+        path: "/portfolio",
+        element: (
+          <Redirect
+            url={"https://giem-house.me/PublicFiles/Giem-House%20Portfolio.pdf"}
+          />
+        ),
+      },
       { path: "*", element: <NotFound404 /> },
     ],
   },

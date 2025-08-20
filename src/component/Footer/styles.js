@@ -14,7 +14,7 @@ export const footerStyles = {
   flexContainer:
     "flex items-center justify-center flex-col lg:space-y-0 space-y-8 lg:justify-between lg:flex-row",
   content: " !text-primary  block",
-  socialLinks: "flex mt-4 space-x-4 sm:justify-center sm:mt-0",
+  socialLinks: "flex mt-4 gap-2 sm:justify-center sm:mt-0 flex-wrap",
   linkIcon:
     "w-9 h-9 rounded-full border !border-primary flex justify-center items-center hover:!border-accent",
   logoContainer: "flex justify-center",

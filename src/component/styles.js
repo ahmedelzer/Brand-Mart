@@ -108,8 +108,8 @@ export const sectionStyles = {
   list: "mb-6 md:mb-0",
   listItem: "flex items-center gap-2",
   iconContainer:
-    "flex h-10 w-10 items-center justify-center rounded bg-accent text-text",
-  icon: "h-6 w-6",
+    "flex items-center justify-center rounded bg-accent text-text w-fit p-1",
+  icon: "size-6",
   itemContent: "mx-4 mb-4",
   title: "mb-2 text-lg font-medium leading-6 text-text",
   text: "!text-primary",

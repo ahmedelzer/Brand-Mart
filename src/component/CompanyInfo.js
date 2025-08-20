@@ -5,7 +5,9 @@ import { LanguageContext } from "../context/Language";
 import { GetIconContact } from "./GetIconContact";
 import BranchesByLocationMap from "./BranchesByLocationMap";
 import { ContactContext } from "../context/Contact";
-
+import { CiLocationOn } from "react-icons/ci";
+import { GrContactInfo } from "react-icons/gr";
+import { TbClockHour5 } from "react-icons/tb";
 function CompanyInfo() {
   const { localization } = useContext(LanguageContext);
   const { branches, masterBranch } = useContext(ContactContext);
@@ -16,28 +18,13 @@ function CompanyInfo() {
         <PageHeading
           subTitle={localization.about.companyInfo.PageHeading.subTitle}
           title={localization.about.companyInfo.PageHeading.title}
-         
         />
         <div className="flex justify-between flex-wrap">
           <div className="h-full w-full md:w-1/2 pr-6 flex align-self-center">
             <ul className={sectionStyles.list}>
               <li className={sectionStyles.listItem}>
                 <div className={sectionStyles.iconContainer}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className={sectionStyles.icon}
-                  >
-                    <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
-                    <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"></path>
-                  </svg>
+                  <CiLocationOn size={35} />
                 </div>
                 <div className={sectionStyles.itemContent}>
                   <h3 className={sectionStyles.title}>
@@ -63,142 +50,152 @@ function CompanyInfo() {
                 masterBranch.companyBranchContacts.length > 0 && (
                   <li className={sectionStyles.listItem}>
                     <div className={sectionStyles.iconContainer}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className={sectionStyles.icon}
-                      >
-                        <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>
-                        <path d="M15 7a2 2 0 0 1 2 2"></path>
-                        <path d="M15 3a6 6 0 0 1 6 6"></path>
-                      </svg>
+                      <GrContactInfo size={35} />
                     </div>
-<div className={sectionStyles.itemContent}>
-  <h3 className={sectionStyles.title}>
-    {localization.about.companyInfo.contactText}
-  </h3>
+                    <div className={sectionStyles.itemContent}>
+                      <h3 className={sectionStyles.title}>
+                        {localization.about.companyInfo.contactText}
+                      </h3>
 
-  <div className="flex flex-wrap justify-center items-center gap-3">
-    {masterBranch.companyBranchContacts?.map((c) => (
-      <div
-        key={c.companyBranchContactID}
-        className="flex items-center justify-center w-12 h-12 rounded-full !text-primary shadow"
-      >
-        {GetIconContact(c.codeNumber, 22, c.contact)}
-      </div>
-    ))}
-  </div>
-</div>
-
-
+                      <div className="flex flex-wrap justify-center items-center gap-3">
+                        {masterBranch.companyBranchContacts?.map((c) => (
+                          <div
+                            key={c.companyBranchContactID}
+                            className="flex items-center justify-center w-12 h-12 rounded-full !text-primary shadow"
+                          >
+                            {GetIconContact(c.codeNumber, 22, c.contact)}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </li>
                 )}
-             {masterBranch && Array.isArray(masterBranch.companyBranchWorkHours) && (
-  <li className={sectionStyles.listItem} key={masterBranch.companyBranchID}>
-    <div className={sectionStyles.iconContainer}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={sectionStyles.icon}
-      >
-        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
-        <path d="M12 7v5l3 3"></path>
-      </svg>
-    </div>
-    <div className={sectionStyles.itemContent}>
-      <h3 className={sectionStyles.title}>
-        {localization.about.companyInfo.workingHours}
-      </h3>
-      <ul className="mt-2">
-{masterBranch.companyBranchWorkHours.map((workHour) => {
-  const today = new Date().getDay(); // Sunday = 0
+              {masterBranch &&
+                Array.isArray(masterBranch.companyBranchWorkHours) && (
+                  <li
+                    className={sectionStyles.listItem}
+                    key={masterBranch.companyBranchID}
+                  >
+                    <div className={sectionStyles.iconContainer}>
+                      <TbClockHour5 size={35} />
+                    </div>
+                    <div className={sectionStyles.itemContent}>
+                      <h3 className={sectionStyles.title}>
+                        {localization.about.companyInfo.workingHours}
+                      </h3>
+                      <ul className="mt-2">
+                        {masterBranch.companyBranchWorkHours.map((workHour) => {
+                          const today = new Date().getDay(); // Sunday = 0
 
-  
-const currentTime = new Date();
-  const isToday = today === workHour.dayIndex;
+                          const currentTime = new Date();
+                          const isToday = today === workHour.dayIndex;
 
-  const convertUTCToLocalTime = (timeString) => {
-    const [hours, minutes] = timeString.split(':').map(Number);
-    let totalMinutes = hours * 60 + minutes;
-    const timezoneOffset = -new Date().getTimezoneOffset(); // flip sign for addition
-    totalMinutes = (totalMinutes + timezoneOffset + 1440) % 1440;
-    const localHours = String(Math.floor(totalMinutes / 60)).padStart(2, '0');
-    const localMinutes = String(totalMinutes % 60).padStart(2, '0');
-    return `${localHours}:${localMinutes}`;
-  };
+                          const convertUTCToLocalTime = (timeString) => {
+                            const [hours, minutes] = timeString
+                              .split(":")
+                              .map(Number);
+                            let totalMinutes = hours * 60 + minutes;
+                            const timezoneOffset =
+                              -new Date().getTimezoneOffset(); // flip sign for addition
+                            totalMinutes =
+                              (totalMinutes + timezoneOffset + 1440) % 1440;
+                            const localHours = String(
+                              Math.floor(totalMinutes / 60)
+                            ).padStart(2, "0");
+                            const localMinutes = String(
+                              totalMinutes % 60
+                            ).padStart(2, "0");
+                            return `${localHours}:${localMinutes}`;
+                          };
 
-  const getMinutesFromTime = (timeString) => {
-    const [hours, minutes] = timeString.split(':').map(Number);
-    return hours * 60 + minutes;
-  };
-const SOON_THRESHOLD_MINUTES = 30;  // Time before opening to show "Open Soon"
-const NEAR_CLOSE_THRESHOLD_MINUTES = 30;  // Time before closing to show "Near Close"
+                          const getMinutesFromTime = (timeString) => {
+                            const [hours, minutes] = timeString
+                              .split(":")
+                              .map(Number);
+                            return hours * 60 + minutes;
+                          };
+                          const SOON_THRESHOLD_MINUTES = 30; // Time before opening to show "Open Soon"
+                          const NEAR_CLOSE_THRESHOLD_MINUTES = 30; // Time before closing to show "Near Close"
 
-  const localStartTime = convertUTCToLocalTime(workHour.startTime);
-  const localEndTime = convertUTCToLocalTime(workHour.endTime);
+                          const localStartTime = convertUTCToLocalTime(
+                            workHour.startTime
+                          );
+                          const localEndTime = convertUTCToLocalTime(
+                            workHour.endTime
+                          );
 
-  // Convert times to minutes for comparison
-  const nowMinutes = currentTime.getHours() * 60 + currentTime.getMinutes();
-  const startMinutes = getMinutesFromTime(localStartTime);
-  const endMinutes = getMinutesFromTime(localEndTime);
+                          // Convert times to minutes for comparison
+                          const nowMinutes =
+                            currentTime.getHours() * 60 +
+                            currentTime.getMinutes();
+                          const startMinutes =
+                            getMinutesFromTime(localStartTime);
+                          const endMinutes = getMinutesFromTime(localEndTime);
 
-  // Determine if current time is outside of working hours
- let statusLabel =localization.about.companyInfo.Closed ;
+                          // Determine if current time is outside of working hours
+                          let statusLabel =
+                            localization.about.companyInfo.Closed;
 
-  if (isToday) {
-    if (nowMinutes >= startMinutes && nowMinutes <= endMinutes) {
-      // Inside working hours
-      if (endMinutes - nowMinutes <= NEAR_CLOSE_THRESHOLD_MINUTES) {
-        statusLabel = 'Near Close';
-      } else {
-        statusLabel = 'Open Now';
-      }
-    } else if (nowMinutes < startMinutes && startMinutes - nowMinutes <= SOON_THRESHOLD_MINUTES) {
-      // Before start time but within "Open Soon" threshold
-      statusLabel = "";
-    }
-  }
+                          if (isToday) {
+                            if (
+                              nowMinutes >= startMinutes &&
+                              nowMinutes <= endMinutes
+                            ) {
+                              // Inside working hours
+                              if (
+                                endMinutes - nowMinutes <=
+                                NEAR_CLOSE_THRESHOLD_MINUTES
+                              ) {
+                                statusLabel =
+                                  localization.about.companyInfo.NearClosed;
+                              } else {
+                                statusLabel =
+                                  localization.about.companyInfo.OpenedNow;
+                              }
+                            } else if (
+                              nowMinutes < startMinutes &&
+                              startMinutes - nowMinutes <=
+                                SOON_THRESHOLD_MINUTES
+                            ) {
+                              // Before start time but within "Open Soon" threshold
+                              statusLabel = "";
+                            }
+                          }
 
-  return (
-    <li
-      key={workHour.companyBranchDayWorkHoursID}
-      className={`flex justify-between gap-2 text-sm md:text-base px-2 py-1 !text-primary rounded ${
-        isToday ? 'bg-text opacity-50' : ''
-      }`}
-    >
-      <span>{workHour.dayName}</span>
-      <span>
-        {localStartTime} - {localEndTime} 
-        {isToday && statusLabel !="" && (
-          <span className="ml-2 font-bold">
-            ({statusLabel})
-          </span>
-        )}
-      </span>
-    </li>
-  );
-})}
+                          return (
+                            <div
+                              className={`size-full text-sm md:text-base px-2 py-1 !text-primary rounded ${
+                                isToday ? "bg-text opacity-50" : ""
+                              }`}
+                            >
+                              <li
+                                key={workHour.companyBranchDayWorkHoursID}
+                                className={`grid grid-cols-2 items-center gap-2 text-sm md:text-base px-2 py-1 !text-primary rounded`}
+                              >
+                                {/* Column 1: Day name */}
+                                <span>{workHour.dayName}</span>
 
+                                {/* Column 2: Time range */}
+                                <span className="whitespace-nowrap text-ellipsis">
+                                  {localStartTime} - {localEndTime}
+                                </span>
 
-      </ul>
-    </div>
-  </li>
-)}
-
+                                {/* Column 3: Status label */}
+                              </li>
+                              {isToday && statusLabel !== "" ? (
+                                <div className="text-sm font-bold text-center overflow-hidden text-ellipsis">
+                                  ({statusLabel})
+                                </div>
+                              ) : (
+                                <div></div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </li>
+                )}
             </ul>
           </div>
           {branches.length > 0 && (
